@@ -1,0 +1,317 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AHMS1.master.cs" Inherits="AHMS1.AHMS1" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en-us">
+<head runat="server">
+ <meta charset="utf-8" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Smarty Admin</title>
+          <asp:ContentPlaceHolder id="head" runat="server">
+    </asp:ContentPlaceHolder>
+		<meta name="description" content="" />
+		<meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+
+		<!-- mobile settings -->
+		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+
+		<!-- WEB FONTS -->
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" rel="stylesheet" type="text/css" />
+
+		<!-- CORE CSS -->
+		<link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		
+		<!-- THEME CSS -->
+		<link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+        <!-- PAGE LEVEL STYLES -->
+		<link href="assets/css/layout-datatables.css" rel="stylesheet" type="text/css" />
+
+	</head>
+	<!--
+		.boxed = boxed version
+	-->
+	<body>
+         <form id="form2" runat="server">
+          <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+
+		<!-- WRAPPER -->
+		<div id="wrapper">
+
+			<!-- 
+				ASIDE 
+				Keep it outside of #wrapper (responsive purpose)
+			-->
+			<aside id="aside">
+				<!--
+					Always open:
+					<li class="active alays-open">
+
+					LABELS:
+						<span class="label label-danger pull-right">1</span>
+						<span class="label label-default pull-right">1</span>
+						<span class="label label-warning pull-right">1</span>
+						<span class="label label-success pull-right">1</span>
+						<span class="label label-info pull-right">1</span>
+				-->
+				<nav id="sideNav"><!-- MAIN MENU -->
+					<ul class="nav nav-list">
+                        
+                        <asp:Repeater runat="server" ID="rptMenuData" ><HeaderTemplate></HeaderTemplate>
+                            <ItemTemplate>
+                                <li><!-- dashboard -->
+							<a class="<%#Eval("aClass") %>" href="<%#Eval("MenuUrl") %>"><!-- warning - url used by default by ajax (if eneabled) -->
+								
+                                <i class="<%#Eval("IconClass") %>"></i>
+                                <span class="<%#Eval("FavClass") %>"></span> <span><%#Eval("MenuName") %></span>
+                                <asp:Literal runat="server" ID="ltrlSubmenu"></asp:Literal>
+							</a>
+						</li>
+                            </ItemTemplate>
+                            <FooterTemplate></FooterTemplate>
+                        </asp:Repeater>
+						
+						
+				<%--	
+						<li>
+							<a href="#">
+								<i class="fa fa-menu-arrow pull-right"></i>
+								<i class="main-icon fa fa-pencil-square-o"></i> <span>Patient</span>
+							</a>--%>
+						<%--	<ul><!-- submenus -->
+								<li><a href="PatientRegistration.aspx">New Patient</a></li>
+								<li><a href="ViewPatient.aspx">View Patients</a></li>
+                                <li><a href="FeesInvoice.aspx"></a></li>
+                                
+
+								
+							</ul>--%>
+						<%--</li>
+						
+						<li class="active">
+							<a href="#">
+								<i class="fa fa-menu-arrow pull-right"></i>
+								<i class="main-icon fa fa-book"></i> <span>Clerk</span>
+							</a>--%>
+							<%--<ul><!-- submenus -->
+                            <li><a href="UserProfile.aspx">Add</a></li>
+								<li><a href=" HostelAllocation.aspx"> view</a></li>
+								<li><a href="page-register.html">Invoice</a></li>
+							
+							
+								<li class="active"><a href="page-blank-1.html"></a></li>
+							</ul>--%>
+					<%--	</li>
+						<li>
+
+							<a href="#">
+								<i class="main-icon fa fa-calendar"></i>
+								<span class="label label-warning pull-right">--%>
+                                     <%-- <asp:Repeater ID="repEmployeeDetails"  runat="server">
+                    <ItemTemplate>
+                        <tr >
+                         
+                         
+                              <td><%#Eval("count") %></td>  
+                         
+                          
+                        </tr>
+
+                    </ItemTemplate>
+                </asp:Repeater>--%>
+
+
+<%--								</span> <span>Micscelleous</span>
+							</a>--%>
+                           <%-- <ul><!-- submenus -->
+                            <li><a href="ApplyMiscellaneous.aspx">Apply for Micscelleous </a></li>
+								<li><a href="ViewMiscellaneous.aspx"> View Applied Micscelleous</a></li>
+								
+							
+							</ul>--%>
+						<%--</li>--%>
+					</ul>
+
+				
+
+				</nav>
+
+				<span id="asidebg"><!-- aside fixed background --></span>
+			</aside>
+			<!-- /ASIDE -->
+
+
+			<!-- HEADER -->
+			<header id="header">
+
+				<!-- Mobile Button -->
+				<button id="mobileMenuBtn"></button>
+
+				<!-- Logo -->
+				<span class="logo pull-left">
+					<img src="assets/images/logo_light.png" alt="admin panel" height="35" />
+				</span>
+
+				<div  class="search pull-left hidden-xs">
+                   
+				</div>
+
+				<nav>
+                     <span class="user-name hidden-xs pull-left" style="margin-top:15px">
+                        <asp:Label ID="LblDate" CssClass="color-white" runat="server" ></asp:Label>
+                    
+					  </span>
+					<!-- OPTIONS LIST -->
+					<ul class="nav pull-right">
+
+						<!-- USER OPTIONS -->
+						<li class="dropdown pull-left">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+								<img class="user-avatar" alt="" src="assets/images/noavatar.jpg" height="34" /> 
+								<span class="user-name">
+									<span class="hidden-xs">
+									  <asp:Label ID="LblSession" runat="server" ></asp:Label> <i class="fa fa-angle-down"></i>
+									</span>
+								</span>
+							</a>
+							<ul class="dropdown-menu hold-on-click">
+								
+
+								<li><!-- lockscreen -->
+									<a href="LockScreen.aspx"><i class="fa fa-lock"></i> Lock Screen</a>
+								</li>
+								<li><!-- logout -->
+                                    <asp:LinkButton OnClick ="btnLogOut_Click" ID="btnLogOut" runat="server"><i class="fa fa-power-off"></i> Log Out</asp:LinkButton>
+								
+                                   
+								</li>
+							</ul>
+						</li>
+						<!-- /USER OPTIONS -->
+
+					</ul>
+					<!-- /OPTIONS LIST -->
+
+				</nav>
+
+			</header>
+			<!-- /HEADER -->
+
+
+			<!-- 
+				MIDDLE 
+			-->
+			<section id="middle">
+
+
+			
+
+
+				
+
+					
+
+
+ <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+        
+        </asp:ContentPlaceHolder>       
+
+
+
+				
+			</section>
+			<!-- /MIDDLE -->
+
+		</div>
+
+
+
+	
+</form>
+        
+		<!-- JAVASCRIPT FILES -->
+		<script type="text/javascript">var plugin_path = 'assets/plugins/';</script>
+		<script type="text/javascript" src="assets/plugins/jquery/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="assets/js/app.js"></script>
+             
+		<!-- PAGE LEVEL SCRIPTS -->
+		<script type="text/javascript">
+		    loadScript(plugin_path + "datatables/js/jquery.dataTables.min.js", function () {
+		        loadScript(plugin_path + "datatables/dataTables.bootstrap.js", function () {
+
+		            if (jQuery().dataTable) {
+
+		                var table = jQuery('#datatable_sample');
+		                table.dataTable({
+		                    "columns": [{
+		                        "orderable": false
+		                    }, {
+		                        "orderable": true
+		                    }, {
+		                        "orderable": false
+		                    }, {
+		                        "orderable": false
+		                    }, {
+		                        "orderable": true
+		                    }, {
+		                        "orderable": false
+		                    }],
+		                    "lengthMenu": [
+								[5, 15, 20, -1],
+								[5, 15, 20, "All"] // change per page values here
+		                    ],
+		                    // set the initial value
+		                    "pageLength": 5,
+		                    "pagingType": "bootstrap_full_number",
+		                    "language": {
+		                        "lengthMenu": "  _MENU_ records",
+		                        "paginate": {
+		                            "previous": "Prev",
+		                            "next": "Next",
+		                            "last": "Last",
+		                            "first": "First"
+		                        }
+		                    },
+		                    "columnDefs": [{  // set default column settings
+		                        'orderable': false,
+		                        'targets': [0]
+		                    }, {
+		                        "searchable": false,
+		                        "targets": [0]
+		                    }],
+		                    "order": [
+								[1, "asc"]
+		                    ] // set first column as a default sort by asc
+		                });
+
+		                var tableWrapper = jQuery('#datatable_sample_wrapper');
+
+		                table.find('.group-checkable').change(function () {
+		                    var set = jQuery(this).attr("data-set");
+		                    var checked = jQuery(this).is(":checked");
+		                    jQuery(set).each(function () {
+		                        if (checked) {
+		                            jQuery(this).attr("checked", true);
+		                            jQuery(this).parents('tr').addClass("active");
+		                        } else {
+		                            jQuery(this).attr("checked", false);
+		                            jQuery(this).parents('tr').removeClass("active");
+		                        }
+		                    });
+		                    jQuery.uniform.update(set);
+		                });
+
+		                table.on('change', 'tbody tr .checkboxes', function () {
+		                    jQuery(this).parents('tr').toggleClass("active");
+		                });
+
+		                tableWrapper.find('.dataTables_length select').addClass("form-control input-xsmall input-inline"); // modify table per page dropdown
+
+		            }
+
+		        });
+		    });
+		</script>
+</body>
+</html>
